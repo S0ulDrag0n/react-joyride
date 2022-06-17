@@ -108,10 +108,6 @@ export default class JoyrideOverlay extends React.Component {
     const isFixedTarget = hasPosition(element);
     const top = getElementPosition(element, spotlightPadding, disableScrollParentFix);
 
-    console.log('styles', styles.spotlight);
-    styles.spotlight = {...styles.spotlight,
-    top: '70px'
-    }
     return {
       ...(isLegacy() ? styles.spotlightLegacy : styles.spotlight),
       height: Math.round(elementRect.height + spotlightPadding * 2),
@@ -119,7 +115,7 @@ export default class JoyrideOverlay extends React.Component {
       opacity: showSpotlight ? 1 : 0,
       pointerEvents: spotlightClicks ? 'none' : 'auto',
       position: isFixedTarget ? 'fixed' : 'absolute',
-      top,
+      top: '70px',
       transition: 'opacity 0.2s',
       width: Math.round(elementRect.width + spotlightPadding * 2),
     };
