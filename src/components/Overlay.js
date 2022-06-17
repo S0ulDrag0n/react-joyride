@@ -199,7 +199,7 @@ export default class JoyrideOverlay extends React.Component {
       pointerEvents: mouseOverSpotlight ? 'none' : 'auto',
       ...baseStyles,
     };
-    console.log('HELLO CHAR'
+    console.log('HIII SECOND CHAR'
     )
 
     let spotlight = placement !== 'center' && showSpotlight && (
