@@ -101,8 +101,9 @@ export default class JoyrideOverlay extends React.Component {
 
   get spotlightStyles() {
     const { showSpotlight } = this.state;
-    const { disableScrollParentFix, spotlightClicks, spotlightPadding, styles, target } =
+    const { disableScrollParentFix, spotlightClicks, spotlightPadding, styles, target, iframe } =
       this.props;
+
     const element = getElement(target);
     const elementRect = getClientRect(element);
     const isFixedTarget = hasPosition(element);
@@ -111,11 +112,11 @@ export default class JoyrideOverlay extends React.Component {
     return {
       ...(isLegacy() ? styles.spotlightLegacy : styles.spotlight),
       height: Math.round(elementRect.height + spotlightPadding * 2),
-      left: Math.round(elementRect.left - spotlightPadding),
+      left: iframe ? Math.round(elementRect.left - spotlightPadding) + iframe.left : Math.round(elementRect.left - spotlightPadding),
       opacity: showSpotlight ? 1 : 0,
       pointerEvents: spotlightClicks ? 'none' : 'auto',
       position: isFixedTarget ? 'fixed' : 'absolute',
-      top: '70px',
+      top: iframe ? iframe.top : top,
       transition: 'opacity 0.2s',
       width: Math.round(elementRect.width + spotlightPadding * 2),
     };
@@ -199,8 +200,6 @@ export default class JoyrideOverlay extends React.Component {
       pointerEvents: mouseOverSpotlight ? 'none' : 'auto',
       ...baseStyles,
     };
-    console.log('HIII SECOND CHAR'
-    )
 
     let spotlight = placement !== 'center' && showSpotlight && (
       <Spotlight styles={this.spotlightStyles} />

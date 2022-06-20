@@ -231,6 +231,7 @@ export function isElementVisible(element: ?HTMLElement): boolean {
  * @returns {HTMLElement|undefined}
  */
 export function getElementPosition(element: HTMLElement, offset: number, skipFix: boolean): number {
+  console.log('hi char', element, typeof element)
   const elementRect = getClientRect(element);
   const parent = getScrollParent(element, skipFix);
   const hasScrollParent = hasCustomScrollParent(element, skipFix);

@@ -39,6 +39,7 @@
     "exenv": "^1.2.2",
     "is-lite": "^0.8.1",
     "nested-property": "^4.0.0",
+    "patch-package": "^6.4.7",
     "react-floater": "^0.7.3",
     "react-is": "^16.13.1",
     "scroll": "^3.0.1",

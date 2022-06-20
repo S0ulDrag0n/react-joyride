@@ -1,0 +1,17 @@
+diff --git a/node_modules/scrollparent/scrollparent.js b/node_modules/scrollparent/scrollparent.js
+index fb1088d..50cec73 100644
+--- a/node_modules/scrollparent/scrollparent.js
++++ b/node_modules/scrollparent/scrollparent.js
+@@ -28,9 +28,9 @@
+   };
+ 
+   var scrollParent = function (node) {
+-    if (!(node instanceof HTMLElement || node instanceof SVGElement)) {
+-      return ;
+-    }
++    // if (!(node instanceof HTMLElement || node instanceof SVGElement)) {
++    //   return ;
++    // }
+ 
+     var ps = parents(node.parentNode, []);
+ 
