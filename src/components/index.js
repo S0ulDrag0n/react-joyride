@@ -110,7 +110,7 @@ class Joyride extends React.Component {
 
     const stepsChanged = !isEqual(prevSteps, steps);
     const stepIndexChanged = is.number(stepIndex) && changedProps('stepIndex');
-    const target = getElement(step?.target);
+    const target = getElement(step?.target, step?.iframe?.contentWindow);
 
     if (stepsChanged) {
       if (validateSteps(steps, debug)) {
@@ -283,7 +283,7 @@ class Joyride extends React.Component {
 
     /* istanbul ignore else */
     if (step) {
-      const target = getElement(step.target);
+      const target = getElement(step.target, step.iframe?.contentWindow);
       const shouldScroll = this.shouldScroll(
         disableScrolling,
         index,

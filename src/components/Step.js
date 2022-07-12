@@ -145,7 +145,7 @@ export default class JoyrideStep extends React.Component {
 
     // There's a step to use, but there's no target in the DOM
     if (hasStoreChanged && step) {
-      const element = getElement(step.target);
+      const element = getElement(step.target, step?.iframe?.contentWindow);
       const elementExists = !!element;
       const hasRenderedTarget = elementExists && isElementVisible(element);
 
@@ -272,7 +272,7 @@ export default class JoyrideStep extends React.Component {
   render() {
     const { continuous, debug, helpers, index, lifecycle, nonce, shouldScroll, size, step } =
       this.props;
-    const target = getElement(step.target);
+    const target = getElement(step.target, step?.iframe?.contentWindow);
 
     if (!validateStep(step) || !is.domElement(target)) {
       return null;
@@ -306,7 +306,7 @@ export default class JoyrideStep extends React.Component {
           isPositioned={step.isFixed || hasPosition(target)}
           open={this.open}
           placement={step.placement}
-          target={step.target}
+          target={target}
           {...step.floaterProps}
         >
           <Beacon

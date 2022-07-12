@@ -49,10 +49,10 @@ export function getDocumentHeight(): number {
  *
  * @returns {HTMLElement|null}
  */
-export function getElement(element: string | HTMLElement): ?HTMLElement {
+export function getElement(element: string | HTMLElement, targetWindow = window): ?HTMLElement {
   /* istanbul ignore else */
   if (typeof element === 'string') {
-    return document.querySelector(element);
+    return targetWindow.document.querySelector(element);
   }
 
   return element;
@@ -74,6 +74,7 @@ export function getRelativeClientRect(element: HTMLElement, parent: HTMLElement)
   }
 
   const parentRect = getClientRect(parent);
+
   const offsetTop = elementRect.top - parentRect.top + parent.scrollTop;
   const offsetLeft = elementRect.left - parentRect.left + parent.scrollLeft;
 
@@ -230,16 +231,20 @@ export function isElementVisible(element: ?HTMLElement): boolean {
  *
  * @returns {HTMLElement|undefined}
  */
-export function getElementPosition(element: HTMLElement, offset: number, skipFix: boolean): number {
-  console.log('hi char', element, typeof element)
+export function getElementPosition(
+  element: HTMLElement,
+  offset: number,
+  skipFix: boolean,
+  iframeTop?: number,
+): number {
   const elementRect = getClientRect(element);
   const parent = getScrollParent(element, skipFix);
   const hasScrollParent = hasCustomScrollParent(element, skipFix);
-  let parentTop = 0;
+  let parentTop = iframeTop || 0;
 
   /* istanbul ignore else */
   if (parent instanceof HTMLElement) {
-    parentTop = parent.scrollTop;
+    parentTop += parent.scrollTop;
   }
 
   const top = elementRect.top + (!hasScrollParent && !hasPosition(element) ? parentTop : 0);

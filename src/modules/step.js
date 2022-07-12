@@ -45,7 +45,7 @@ export function getMergedStep(step: StepProps, props: JoyrideProps): ?StepProps 
   });
   const mergedStyles = getStyles(deepmerge(props.styles || {}, step.styles || {}));
   const scrollParent = hasCustomScrollParent(
-    getElement(step.target),
+    getElement(step.target, step?.iframe?.contentWindow),
     mergedStep.disableScrollParentFix,
   );
   const floaterProps = deepmerge.all([

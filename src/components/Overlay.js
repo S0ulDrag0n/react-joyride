@@ -41,8 +41,8 @@ export default class JoyrideOverlay extends React.Component {
   };
 
   componentDidMount() {
-    const { debug, disableScrolling, disableScrollParentFix, target } = this.props;
-    const element = getElement(target);
+    const { debug, disableScrolling, disableScrollParentFix, target, iframe } = this.props;
+    const element = getElement(target, iframe?.contentWindow);
 
     this.scrollParent = getScrollParent(element, disableScrollParentFix, true);
     this._isMounted = true;
@@ -104,19 +104,23 @@ export default class JoyrideOverlay extends React.Component {
     const { disableScrollParentFix, spotlightClicks, spotlightPadding, styles, target, iframe } =
       this.props;
 
-    const element = getElement(target);
+    const element = getElement(target, iframe?.contentWindow);
+
     const elementRect = getClientRect(element);
     const isFixedTarget = hasPosition(element);
-    const top = getElementPosition(element, spotlightPadding, disableScrollParentFix);
+    const top = getElementPosition(element, spotlightPadding, disableScrollParentFix, iframe?.top);
+    let left = iframe
+      ? Math.round(elementRect.left - spotlightPadding) + iframe.left
+      : Math.round(elementRect.left - spotlightPadding);
 
     return {
       ...(isLegacy() ? styles.spotlightLegacy : styles.spotlight),
       height: Math.round(elementRect.height + spotlightPadding * 2),
-      left: iframe ? Math.round(elementRect.left - spotlightPadding) + iframe.left : Math.round(elementRect.left - spotlightPadding),
+      left: left,
       opacity: showSpotlight ? 1 : 0,
       pointerEvents: spotlightClicks ? 'none' : 'auto',
       position: isFixedTarget ? 'fixed' : 'absolute',
-      top: iframe ? iframe.top : top,
+      top: top,
       transition: 'opacity 0.2s',
       width: Math.round(elementRect.width + spotlightPadding * 2),
     };
@@ -138,8 +142,8 @@ export default class JoyrideOverlay extends React.Component {
   };
 
   handleScroll = () => {
-    const { target } = this.props;
-    const element = getElement(target);
+    const { target, iframe } = this.props;
+    const element = getElement(target, iframe?.contentWindow);
 
     if (this.scrollParent !== document) {
       const { isScrolling } = this.state;
