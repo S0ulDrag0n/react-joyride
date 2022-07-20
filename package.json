@@ -125,7 +125,8 @@
     "format": "prettier \"**/*.{js,jsx,ts,tsx}\" --write",
     "validate": "npm run lint && npm run test:coverage && flow && npm run build && npm run size",
     "size": "size-limit",
-    "prepublishOnly": "npm run validate"
+    "prepublishOnly": "npm run validate",
+    "prepare": "patch-package"
   },
   "size-limit": [
     {
