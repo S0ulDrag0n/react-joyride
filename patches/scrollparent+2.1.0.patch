@@ -1,0 +1,15 @@
+diff --git a/node_modules/scrollparent/scrollparent.js b/node_modules/scrollparent/scrollparent.js
+index 1619d3b..e5f100b 100644
+--- a/node_modules/scrollparent/scrollparent.js
++++ b/node_modules/scrollparent/scrollparent.js
+@@ -14,10 +14,6 @@
+   }
+ 
+   function scrollParent(node) {
+-    if (!(node instanceof HTMLElement || node instanceof SVGElement)) {
+-      return undefined;
+-    }
+-
+     var current = node.parentNode;
+     while (current.parentNode) {
+       if (isScrolling(current)) {
